@@ -58,7 +58,8 @@ import android.widget.Toast;
  */
 public class AssistantActivity extends Activity implements OnClickListener {
 	private static AssistantActivity instance;
-	private ImageView back, cancel;
+	//private ImageView back, cancel;
+	private ImageView cancel;
 	private AssistantFragmentsEnum currentFragment;
 	private AssistantFragmentsEnum firstFragment;
 	private Fragment fragment;
@@ -154,8 +155,9 @@ public class AssistantActivity extends Activity implements OnClickListener {
 	}
 
 	private void initUI() {
-		back = (ImageView) findViewById(R.id.back);
-		back.setOnClickListener(this);
+		/* Para quitar el botón de atrás*/
+		//back = (ImageView) findViewById(R.id.back);
+		//back.setOnClickListener(this);
 		cancel = (ImageView) findViewById(R.id.assistant_cancel);
 		cancel.setOnClickListener(this);
 	}
@@ -202,7 +204,7 @@ public class AssistantActivity extends Activity implements OnClickListener {
 			WelcomeFragment fragment = new WelcomeFragment();
 			changeFragment(fragment);
 			currentFragment = AssistantFragmentsEnum.WELCOME;
-			back.setVisibility(View.INVISIBLE);
+			//back.setVisibility(View.INVISIBLE);
 		} else if (currentFragment == AssistantFragmentsEnum.WELCOME) {
 			finish();
 		}
@@ -223,7 +225,7 @@ public class AssistantActivity extends Activity implements OnClickListener {
 			fragment.enableEcCalibrationResultSending(sendEcCalibrationResult);
 			changeFragment(fragment);
 			currentFragment = AssistantFragmentsEnum.ECHO_CANCELLER_CALIBRATION;
-			back.setVisibility(View.VISIBLE);
+			//back.setVisibility(View.VISIBLE);
 			cancel.setEnabled(false);
 		} else {
 			success();
@@ -258,13 +260,19 @@ public class AssistantActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	public void verificateCode(String phoneNumber, String countryCode) {
+		displayVerification(phoneNumber, countryCode);
+	}
+
 	private void display(AssistantFragmentsEnum fragment) {
 		switch (fragment) {
 			case WELCOME:
-				displayMenu();
+				//displayMenu();
+				displayRegister();
 				break;
 			case LINPHONE_LOGIN:
-				displayLoginLinphone();
+				//displayLoginLinphone();
+				displayRegister();
 				break;
 		default:
 			throw new IllegalStateException("Can't handle " + fragment);
@@ -275,35 +283,54 @@ public class AssistantActivity extends Activity implements OnClickListener {
 		fragment = new WelcomeFragment();
 		changeFragment(fragment);
 		currentFragment = AssistantFragmentsEnum.WELCOME;
-		back.setVisibility(View.INVISIBLE);
+		//back.setVisibility(View.INVISIBLE);
+	}
+
+	public void displayRegister() {
+		fragment = new RegisterFragment();
+		changeFragment(fragment);
+		currentFragment = AssistantFragmentsEnum.REGISTER;
+		//back.setVisibility(View.VISIBLE);
+	}
+
+	public void displayVerification(String phoneNumber, String countryCode) {
+		Bundle bundle=new Bundle();
+		bundle.putString("phoneNumber", phoneNumber);
+		bundle.putString("countryCode", countryCode);
+		//set Fragmentclass Arguments
+		fragment = new VerificationFragment();
+		fragment.setArguments(bundle);
+		changeFragment(fragment);
+		currentFragment = AssistantFragmentsEnum.VERIFICATION;
+		//back.setVisibility(View.VISIBLE);
 	}
 
 	public void displayLoginGeneric() {
 		fragment = new LoginFragment();
 		changeFragment(fragment);
 		currentFragment = AssistantFragmentsEnum.LOGIN;
-		back.setVisibility(View.VISIBLE);
+		//back.setVisibility(View.VISIBLE);
 	}
 	
 	public void displayLoginLinphone() {
 		fragment = new LinphoneLoginFragment();
 		changeFragment(fragment);
 		currentFragment = AssistantFragmentsEnum.LINPHONE_LOGIN;
-		back.setVisibility(View.VISIBLE);
+		//back.setVisibility(View.VISIBLE);
 	}
 
 	public void displayCreateAccount() {
 		fragment = new CreateAccountFragment();
 		changeFragment(fragment);
 		currentFragment = AssistantFragmentsEnum.CREATE_ACCOUNT;
-		back.setVisibility(View.VISIBLE);
+		//back.setVisibility(View.VISIBLE);
 	}
 
 	public void displayRemoteProvisioning() {
 		fragment = new RemoteProvisioningFragment();
 		changeFragment(fragment);
 		currentFragment = AssistantFragmentsEnum.REMOTE_PROVISIONING;
-		back.setVisibility(View.VISIBLE);
+		//back.setVisibility(View.VISIBLE);
 	}
 
 	public void retryLogin(String username, String password, String displayName, String domain, TransportType transport) {
@@ -424,7 +451,7 @@ public class AssistantActivity extends Activity implements OnClickListener {
 		changeFragment(fragment);
 		
 		currentFragment = AssistantFragmentsEnum.CREATE_ACCOUNT_ACTIVATION;
-		back.setVisibility(View.INVISIBLE);
+		//back.setVisibility(View.INVISIBLE);
 	}
 	
 	public void isAccountVerified(String username) {

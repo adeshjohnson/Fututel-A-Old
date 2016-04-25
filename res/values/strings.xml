@@ -346,4 +346,27 @@
 	<string name="content_description_cancel_button">Cancel button</string>
 	<string name="content_description_message_status">Message status</string>
 	<string name="content_description_conference">Conference</string>
+
+	<!--Nuevos strings agregados para GABOTEL (tiene su traducción en el archivo strings.xml es)-->
+
+	<string name="phone">Phone</string>
+	<string name="register">Register</string>
+	<string name="login">Login</string>
+	<string name="calls">Calls</string>
+	<string name="chats">Chats</string>
+	<string name="country">Country</string>
+	<string name="country_code">Country Code</string>
+	<string name="invalid_country_code">Invalid Country Code</string>
+	<string name="invalid_phone_number">Invalid Phone Number</string>
+	<string name="title_activity_verification_code">VerificationCodeActivity</string>
+
+	<string name="code_sent">We sent a SMS with the verification code to the number </string>
+	<string name="continue_string">Continue</string>
+	<string name="verification_code">Verification Code</string>
+
+	<string name="drawer_open">Open navigation drawer</string>
+	<string name="drawer_close">Close navigation drawer</string>
+
+	<string name="account_image_description">Account avatar</string>
+	<string name="account_settings_confirm_password">Confirm password</string>
 </resources>

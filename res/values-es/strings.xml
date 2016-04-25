@@ -193,4 +193,20 @@
   <string name="content_description_numpad">Teclado numerico</string>
   <string name="content_description_call_quality">Calidad de la llamada</string>
   <string name="content_description_conference">Conferencia</string>
+
+  <!--Nuevos strings agregados para GABOTEL -->
+
+  <string name="phone">Teléfono</string>
+  <string name="register">Registro</string>
+  <string name="login">Ya tengo una cuenta</string>
+  <string name="calls">Llamadas</string>
+  <string name="chats">Chats</string>
+  <string name="country">País</string>
+  <string name="country_code">Código de País</string>
+  <string name="invalid_country_code">Código de País Inválido</string>
+  <string name="invalid_phone_number">Número de teléfono no válido</string>
+   <string name="code_sent">Enviamos un SMS con el código de verificación a tu móvil. Espera un
+momento o introduce el código </string>
+  <string name="continue_string">Continuar</string>
+  <string name="verification_code">Código de Verificación</string>
 </resources>
