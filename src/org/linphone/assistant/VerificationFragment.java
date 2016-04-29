@@ -182,7 +182,7 @@ public class VerificationFragment extends Fragment {
         @Override
         public void onClick(final View v) {
 
-            Toast.makeText(getActivity(), "Button clicked", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "Button clicked", Toast.LENGTH_LONG).show();
             if (mVerificationCode!=null)
             {
                 register(mVerificationCode.getText().toString());
@@ -205,23 +205,23 @@ public class VerificationFragment extends Fragment {
     public void postRequest(String verificationCode) {
         String urlForPostRequest;
 
-        Toast.makeText(getActivity(), "Postrequest", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(), "Postrequest", Toast.LENGTH_LONG).show();
         stringToSha1 = countryCode + phoneNumber + verificationCode + "J&TqQpnMs4CJ56g";
 
         try {
-            Toast.makeText(getActivity(), "sha1code", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "sha1code", Toast.LENGTH_LONG).show();
             sha1CodedString = sha1(stringToSha1);
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "error in sha1code", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "error in sha1code", Toast.LENGTH_LONG).show();
             sha1CodedString = stringToSha1;
         }
 
         /* Proceso asíncrono para registro */
 
         //Toast para cadena encriptada
-        Toast.makeText(getActivity(), sha1CodedString, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(), sha1CodedString, Toast.LENGTH_LONG).show();
 
-        urlForPostRequest = "http://sip.gabotel.com/billing/api/user_register_mobile?u=admin&country_prefix=" + countryCode + "&local_number=" + phoneNumber + "&verif_code=" + verificationCode + "&hash=" + sha1CodedString;
+        urlForPostRequest = "http://sip.fututel.com/billing/api/user_register_mobile?u=admin&country_prefix=" + countryCode + "&local_number=" + phoneNumber + "&verif_code=" + verificationCode + "&hash=" + sha1CodedString;
         //new MyAsyncTask().execute("http://sip.fututel.com/billing/api/send_sms_verification_code?u=admin&country_prefix=57&local_number=3204837292&hash=ca2496f1b712be2aa275334b538a5c8e398d0cc1");
         makingPostRequest = true;
         //showProgress(true);
@@ -254,7 +254,7 @@ public class VerificationFragment extends Fragment {
 
     private String downloadContent(String myurl, String verificationCode) throws IOException {
 
-        /* Este método realiza la petición POST al servidor de GABOTEL */
+        /* Este método realiza la petición POST al servidor de sip.fututel.com */
         InputStream is = null;
         int length = 500;
 
@@ -296,7 +296,7 @@ public class VerificationFragment extends Fragment {
             xmlResponse = contentAsString;
 
             int index = contentAsString.indexOf("password");
-            password = contentAsString.substring(index + 9, index + 17);;
+            password = contentAsString.substring(index + 9, index + 19);
 
 
 
@@ -339,15 +339,15 @@ public class VerificationFragment extends Fragment {
             //Toast.makeText(getActivity(), userName, Toast.LENGTH_LONG).show();
 
             //Toast para mostrar respuesta xml del servidor
-            Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
-            Toast.makeText(getActivity(), "password:"+password, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "password:"+password, Toast.LENGTH_LONG).show();
 
 
             if (result.contains("success")) {
                 showProgress(false);
-                Toast.makeText(getActivity(), "registro satisfactorio", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Registro satisfactorio", Toast.LENGTH_LONG).show();
                 //showProgress(true);
-                AssistantActivity.instance().genericLogIn(userName, password, "", "sip.gabotel.com", TransportType.LinphoneTransportUdp);
+                AssistantActivity.instance().genericLogIn(userName, password, "", "sip.fututel.com", TransportType.LinphoneTransportUdp);
 
 
                 //finish();

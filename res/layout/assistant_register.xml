@@ -10,7 +10,7 @@
 		android:orientation="vertical">
 
 		<TextView
-			android:text="@string/assistant_generic_account"
+			android:text="@string/assistant_fututel_account"
 			style="@style/font6"
 			android:textAllCaps="true"
 			android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
 			android:layout_gravity="center"/>
 
 		<TextView
-			android:text="@string/assistant_login_desc"
+			android:text="@string/assistant_fututel_desc"
 			style="@style/font11"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -34,12 +34,12 @@
 			android:layout_marginTop="30dp"
 			android:orientation="vertical">
 
-			<ImageView android:id="@+id/gabotel"
+			<ImageView android:id="@+id/fututel"
 				android:layout_width="96dp"
 				android:layout_height="96dp"
 				android:layout_alignParentTop="true"
 				android:layout_gravity="center"
-				android:src="@drawable/gabotel"
+				android:src="@drawable/fututel"
 				android:scaleType="centerInside"
 				android:contentDescription="@string/account_image_description"/>
 

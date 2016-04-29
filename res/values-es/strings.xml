@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <!--Custom-->
-  <string name="app_name">Linphone</string>
-  <string name="service_name">Linphone Service</string>
-  <string name="addressbook_label">Linphone</string>
-  <string name="notification_title">Linphone</string>
+  <string name="app_name">Fututel Voz</string>
+  <string name="service_name">Fututel Voz</string>
+  <string name="addressbook_label">Fututel Voz</string>
+  <string name="notification_title">Fututel Voz</string>
   <string name="wait_dialog_text">Iniciando</string>
   <string name="sync_account_name">contactos linphone</string>
   <string name="today_date_format">HH:mm</string>
@@ -27,7 +27,8 @@
   <string name="conference">Conferencia</string>
   <!--Launch screen-->
   <!--Assistant-->
-  <string name="assistant_welcome_desc">Este asistente te ayudará a usar una cuanta SIP para tus llamadas.</string>
+  <string name="assistant">Asistente</string>
+  <string name="assistant_welcome_desc">Este asistente te ayudará a usar una cuenta SIP para tus llamadas.</string>
   <string name="transport">Transporte</string>
   <string name="assistant_account_not_validated">Su cuenta aún no ha sido verificada.</string>
   <string name="assistant_account_validated">Su cuenta ha sido verificada.</string>
@@ -62,7 +63,11 @@
   <string name="status_error">Fallo al registrar</string>
   <string name="voicemail_unread">mensajes sin leer</string>
   <!--Side Menu-->
+  <string name="menu_assistant">Asistente</string>
   <string name="menu_settings">Configuración</string>
+  <string name="menu_about">Acerca</string>
+  <string name="quit">Salir</string>
+
   <!--Call-->
   <string name="unknown_incoming_call_name">Desconocido</string>
   <string name="call_stats_audio">Audio</string>
@@ -108,7 +113,7 @@
   <string name="pref_transport_udp">UDP</string>
   <string name="pref_transport_tcp">TCP</string>
   <string name="pref_transport_tls">TLS</string>
-  <string name="pref_delete_account">Borrar ésta cuenta</string>
+  <string name="pref_delete_account">Borrar esta cuenta</string>
   <string name="pref_default_account">Usar como predeterminada</string>
   <!--Settings-->
   <string name="pref_sipaccounts">Cuentas SIP</string>
@@ -194,10 +199,10 @@
   <string name="content_description_call_quality">Calidad de la llamada</string>
   <string name="content_description_conference">Conferencia</string>
 
-  <!--Nuevos strings agregados para GABOTEL -->
+  <!--Nuevos strings agregados para FUTUTEL -->
 
   <string name="phone">Teléfono</string>
-  <string name="register">Registro</string>
+  <string name="register">Registrarme</string>
   <string name="login">Ya tengo una cuenta</string>
   <string name="calls">Llamadas</string>
   <string name="chats">Chats</string>
@@ -205,8 +210,22 @@
   <string name="country_code">Código de País</string>
   <string name="invalid_country_code">Código de País Inválido</string>
   <string name="invalid_phone_number">Número de teléfono no válido</string>
-   <string name="code_sent">Enviamos un SMS con el código de verificación a tu móvil. Espera un
-momento o introduce el código </string>
+   <string name="code_sent">Enviamos un SMS con el código de verificación a tu móvil. Espera un momento...</string>
   <string name="continue_string">Continuar</string>
   <string name="verification_code">Código de Verificación</string>
+    <string name="assistant_create_account">Crear cuenta</string>
+    <string name="assistant_error_bad_credentials">Usuario o contraseña incorrectas</string>
+    <string name="assistant_fetch_apply"></string>
+    <string name="assistant_finish">Finalizar configuración</string>
+    <string name="assistant_generic_account">Configurar cuenta SIP</string>
+    <string name="assistant_login">Ingresar</string>
+    <string name="content_description_cancel_button">Botón Cancelar</string>
+    <string name="content_description_contacts">Botón de Contactos</string>
+    <string name="content_description_chat_button">Botón de Chat</string>
+    <string name="incoming_call">Llamada entrante</string>
+    <string name="missed">Perdida</string>
+    <string name="status_not_connected">No registrado</string>
+    <string name="assistant_fututel_account">Configurar Cuenta Fututel</string>
+    <string name="assistant_fututel_desc">Escoje tu País y Escribe tu Número Móvil</string>
+    <string name="app_description">La <i>Nueva</i> Forma de Llamar</string>
 </resources>

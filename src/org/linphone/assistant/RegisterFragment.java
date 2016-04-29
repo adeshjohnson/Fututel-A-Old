@@ -81,7 +81,7 @@ public class RegisterFragment extends Fragment implements OnClickListener, TextW
 	private String countryCode;
 	private EditText mCountryCodeText;
 	private ProgressBar mProgressBar;
-	/*Botones definidos para GABOTEL */
+	/*Botones definidos para FUTUTEL */
 	private Button mRegisterButton;
 	private Button mLoginButton;
 
@@ -200,7 +200,7 @@ public class RegisterFragment extends Fragment implements OnClickListener, TextW
 
 	private String downloadContent(String myurl) throws IOException {
 
-        /* Este método realiza la petición POST al servidor de GABOTEL */
+        /* Este método realiza la petición POST al servidor de FUTUTEL */
 		InputStream is = null;
 		int length = 500;
 
@@ -398,8 +398,8 @@ public class RegisterFragment extends Fragment implements OnClickListener, TextW
 					//Toast para mostrar cadena encriptada
 					//Toast.makeText(getActivity(), sha1CodedString, Toast.LENGTH_LONG).show();
 
-					urlForPostRequest = "http://sip.gabotel.com/billing/api/send_sms_verification_code?u=admin&country_prefix="+countryCode+"&local_number="+mPhone.getText().toString()+"&hash="+sha1CodedString;
-					//new MyAsyncTask().execute("http://sip.gabotel.com/billing/api/send_sms_verification_code?u=admin&country_prefix=57&local_number=3204837292&hash=ca2496f1b712be2aa275334b538a5c8e398d0cc1");
+					urlForPostRequest = "http://sip.fututel.com/billing/api/send_sms_verification_code?u=admin&country_prefix="+countryCode+"&local_number="+mPhone.getText().toString()+"&hash="+sha1CodedString;
+					//new MyAsyncTask().execute("http://sip.fututel.com/billing/api/send_sms_verification_code?u=admin&country_prefix=57&local_number=3204837292&hash=ca2496f1b712be2aa275334b538a5c8e398d0cc1");
 					makingPostRequest = true;
 					//showProgress(true);
 

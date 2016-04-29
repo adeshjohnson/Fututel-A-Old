@@ -5,7 +5,7 @@
 
     <!-- Change package ! -->
     <ContactsDataKind
-        android:mimeType="vnd.android.cursor.item/org.linphone.profile"
+        android:mimeType="vnd.android.cursor.item/com.fututelvoz.profile"
         android:icon="@drawable/linphone_logo"
         android:summaryColumn="data2"
         android:detailColumn="data3"

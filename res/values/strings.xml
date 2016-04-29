@@ -2,19 +2,19 @@
 <resources>
 
 	<!-- Custom -->
-	<string name="app_name">Linphone</string>
-	<string name="service_name">Linphone Service</string>
-	<string name="addressbook_label">Linphone</string>
-	<string name="notification_title">Linphone</string>
+	<string name="app_name">Fututel Voz</string>
+	<string name="service_name">Fututel Voz</string>
+	<string name="addressbook_label">Fututel Voz</string>
+	<string name="notification_title">Fututel Voz</string>
 	<string name="wait_dialog_text">Starting up</string>
 	<string name="notification_registered">%s registered</string>
 	<string name="notification_register_failure">%s failed to register</string>
-	<string name="about_version">Linphone Android %s</string>
-	<string name="about_liblinphone_version">Linphone Core %s</string>
+	<string name="about_version">Fututel Voz Android %s</string>
+	<string name="about_liblinphone_version">Fututel Voz Core %s</string>
 	<string name="about_text">GNU General Public License V2\n © 2010-2016 Belledonne Communications</string>
-	<string name="about_link">www.linphone.org</string>
+	<string name="about_link">www.fututel.com</string>
 
-	<string name="sync_account_name">linphone contacts</string>
+	<string name="sync_account_name">Fututel Voz contacts</string>
 
 	<string name="history_date_format">EEE, d MMM</string>
 	<string name="history_detail_date_format">yyyy/MM/dd - HH:mm - </string>
@@ -38,7 +38,6 @@
 	<string name="cancel">Cancel</string>
 	<string name="accept">Accept</string>
 	<string name="continue_text">Continue</string>
-	<string name="about">About</string>
 	<string name="deny">Deny</string>
 	<string name="no_account">No account configured</string>
 	<string name="search">Search</string>
@@ -51,7 +50,7 @@
 	<string name="conference">Conference</string>
 
 	<!-- Launch screen -->
-	<string name="app_description">the <i>libre</i> SIP client</string>
+	<string name="app_description">The <i>New</i> Way to Call</string>
 
 	<!-- Assistant -->
 	<string name="welcome">Welcome</string>
@@ -347,7 +346,7 @@
 	<string name="content_description_message_status">Message status</string>
 	<string name="content_description_conference">Conference</string>
 
-	<!--Nuevos strings agregados para GABOTEL (tiene su traducción en el archivo strings.xml es)-->
+	<!--Nuevos strings agregados para Fututel (tiene su traducción en el archivo strings.xml es)-->
 
 	<string name="phone">Phone</string>
 	<string name="register">Register</string>
@@ -369,4 +368,6 @@
 
 	<string name="account_image_description">Account avatar</string>
 	<string name="account_settings_confirm_password">Confirm password</string>
+	<string name="assistant_fututel_desc">Choose your Country and Type you Mobile Number</string>
+	<string name="assistant_fututel_account">Configure Fututel Account</string>
 </resources>
