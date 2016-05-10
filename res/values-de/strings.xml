@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <!--Custom-->
-  <string name="app_name">Fututel Voz</string>
+  <string name="app_name">Fututel</string>
   <string name="service_name">Linphone-Dienst</string>
-  <string name="addressbook_label">Linphone</string>
-  <string name="notification_title">Linphone</string>
+  <string name="addressbook_label">Fututel</string>
+  <string name="notification_title">Fututel</string>
   <string name="wait_dialog_text">Startvorgang</string>
-  <string name="sync_account_name">Linphone-Kontakte</string>
+  <string name="sync_account_name">Fututel-Kontakte</string>
   <string name="today_date_format">HH:mm</string>
   <string name="picture_name_format">linphone-mms-%s.jpg</string>
   <string name="tunnel_host"></string>

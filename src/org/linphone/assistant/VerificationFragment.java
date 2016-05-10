@@ -23,43 +23,32 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Fragment;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.telephony.SmsMessage;
-import android.text.Editable;
-import android.text.TextWatcher;
 
 import org.linphone.core.LinphoneAddress.TransportType;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
@@ -69,41 +58,22 @@ import java.security.MessageDigest;
  */
 public class VerificationFragment extends Fragment {
 
-    public String userName;
-    public String password;
-
     public static Button mContinueButton;
-    private TableLayout mMoreTable;
-    private String mPassword;
 
     public static TextView mVerificationCode;
-    private TextView mServerInfoSm;
-    private TextView mServerInfoRosterVersion;
-    private TextView mServerInfoCarbons;
-    private TextView mServerInfoMam;
-    private TextView mServerInfoCSI;
-    private TextView mServerInfoBlocking;
-    private TextView mServerInfoPep;
-    private TextView mSessionEst;
-    private TextView mOtrFingerprint;
-    private ImageView mAvatar;
-    private RelativeLayout mOtrFingerprintBox;
-    private ImageButton mOtrFingerprintToClipboardButton;
 
     private String stringToSha1;
     private String sha1CodedString;
-
-
-    private boolean mFetchingAvatar = false;
 
     public boolean makingPostRequest = false;
 
     private String countryCode;
     private String phoneNumber;
     private ProgressBar mProgressBar;
-    private String xmlResponse;
-    private RadioGroup transports;
-    private Button apply;
+    private boolean success = true;
+    private String textresponse = null;
+    private String password = null;
+    private String username = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -112,22 +82,14 @@ public class VerificationFragment extends Fragment {
         countryCode = getArguments().getString("countryCode");
         phoneNumber = getArguments().getString("phoneNumber");
 
-        userName = countryCode + phoneNumber;
-
-
-        this.mPassword = getArguments().getString("phoneNumber");
-        password = this.mPassword;
-
-
-
         this.mVerificationCode = (TextView) view.findViewById(R.id.verification_code);
         this.mContinueButton = (Button) view.findViewById(R.id.continue_button);
 
         this.mContinueButton.setOnClickListener(this.mContinueButtonClickListener);
         this.mProgressBar = (ProgressBar) view.findViewById(R.id.login_progress);
 
-        IntentFilter filter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
-        getActivity().getApplicationContext().registerReceiver(Receiver, filter);
+        //IntentFilter filter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
+        //getActivity().getApplicationContext().registerReceiver(Receiver, filter);
 
 
 
@@ -135,7 +97,7 @@ public class VerificationFragment extends Fragment {
 
         return view;
     }
-
+ /*
     public BroadcastReceiver Receiver = new BroadcastReceiver () {
 
         public final String action = "android.provider.Telephony.SMS_RECEIVED";
@@ -175,6 +137,7 @@ public class VerificationFragment extends Fragment {
             }
         }
     };
+    */
 
 
     private final OnClickListener mContinueButtonClickListener = new OnClickListener() {
@@ -182,194 +145,157 @@ public class VerificationFragment extends Fragment {
         @Override
         public void onClick(final View v) {
 
-            //Toast.makeText(getActivity(), "Button clicked", Toast.LENGTH_LONG).show();
-            if (mVerificationCode!=null)
+            boolean validation = true;
+            String urlForPostRequest;
+
+            if (!makingPostRequest)
             {
-                register(mVerificationCode.getText().toString());
-                //postRequest(mVerificationCode.getText().toString());
+                String verificationCode = mVerificationCode.getText().toString();
+                if (verificationCode.equals("")) {
+                    mVerificationCode.setError(getString(R.string.invalid_verification_code));
+                    mVerificationCode.requestFocus();
+                    validation = false;
+                }
+
+                stringToSha1 = countryCode + phoneNumber + verificationCode + "J&TqQpnMs4CJ56g";
+
+                try {
+                    //Toast.makeText(getActivity(), "sha1code", Toast.LENGTH_LONG).show();
+                    sha1CodedString = sha1(stringToSha1);
+                } catch (Exception e) {
+                    //Toast.makeText(getActivity(), "error in sha1code", Toast.LENGTH_LONG).show();
+                    sha1CodedString = stringToSha1;
+                }
+
+
+                if (validation)
+                {
+                 /* Proceso asíncrono para registro nuevo o existente */
+
+                    urlForPostRequest = "http://sip.fututel.com/billing/api/user_register_mobile?u=admin&country_prefix=" + countryCode + "&local_number=" + phoneNumber + "&verif_code=" + verificationCode + "&hash=" + sha1CodedString;
+                     makingPostRequest = true;
+
+                    //Ejecuta el proceso asíncrono para la petición post
+                    new MyAsyncTask().execute(urlForPostRequest);
+
+                }
+
             }
-
-            //Toast para mostrar password
-            //Toast.makeText(getActivity(), "password on : "+ password, Toast.LENGTH_LONG).show();
-
-
-
         }
     };
 
-    public void register(String verificationCode) {
+    private void downloadContent(String myurl) throws IOException {
 
-        postRequest(verificationCode);
-    }
-
-    public void postRequest(String verificationCode) {
-        String urlForPostRequest;
-
-        //Toast.makeText(getActivity(), "Postrequest", Toast.LENGTH_LONG).show();
-        stringToSha1 = countryCode + phoneNumber + verificationCode + "J&TqQpnMs4CJ56g";
-
+        /* Este método realiza la petición POST al servidor de FUTUTEL y procesa la respuesta */
+        URL url = new URL(myurl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         try {
-            //Toast.makeText(getActivity(), "sha1code", Toast.LENGTH_LONG).show();
-            sha1CodedString = sha1(stringToSha1);
-        } catch (Exception e) {
-            //Toast.makeText(getActivity(), "error in sha1code", Toast.LENGTH_LONG).show();
-            sha1CodedString = stringToSha1;
-        }
-
-        /* Proceso asíncrono para registro */
-
-        //Toast para cadena encriptada
-        //Toast.makeText(getActivity(), sha1CodedString, Toast.LENGTH_LONG).show();
-
-        urlForPostRequest = "http://sip.fututel.com/billing/api/user_register_mobile?u=admin&country_prefix=" + countryCode + "&local_number=" + phoneNumber + "&verif_code=" + verificationCode + "&hash=" + sha1CodedString;
-        //new MyAsyncTask().execute("http://sip.fututel.com/billing/api/send_sms_verification_code?u=admin&country_prefix=57&local_number=3204837292&hash=ca2496f1b712be2aa275334b538a5c8e398d0cc1");
-        makingPostRequest = true;
-        //showProgress(true);
-        new MyAsyncTask().execute(urlForPostRequest, verificationCode);
-
-
-    }
-
-    private void registerFinalStep () {
-
-    }
-
-    /**
-     * Devuelve el código hash SHA-512 de la cádena de caracteres dada.
-     *
-     * @param s La cádena a codificar.
-     * @return tel cçodigo SHA-512 de {@code s}.
-     */
-    private String sha1(String s) throws Exception {
-        MessageDigest md = MessageDigest.getInstance("SHA-1");
-        md.update(s.getBytes());
-        byte[] bytes = md.digest();
-        StringBuffer buffer = new StringBuffer();
-        for (int i = 0; i < bytes.length; i++) {
-            String tmp = Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1);
-            buffer.append(tmp);
-        }
-        return buffer.toString();
-    }
-
-    private String downloadContent(String myurl, String verificationCode) throws IOException {
-
-        /* Este método realiza la petición POST al servidor de sip.fututel.com */
-        InputStream is = null;
-        int length = 500;
-
-
-        try {
-            URL url = new URL(myurl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(10000 /* milliseconds */);
             conn.setConnectTimeout(15000 /* milliseconds */);
             conn.setRequestMethod("POST");
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
+            InputStream in = new BufferedInputStream(conn.getInputStream());
 
-            Uri.Builder builder = new Uri.Builder()
-                    .appendQueryParameter("u", "admin")
-                    .appendQueryParameter("country_prefix", countryCode)
-                    .appendQueryParameter("local_number", phoneNumber)
-                    .appendQueryParameter("verif_code", verificationCode)
-                    .appendQueryParameter("hash", sha1CodedString);
-            String query = builder.build().getEncodedQuery();
+            String mytext = null;
 
+            try {
+                XmlPullParserFactory xmlFactoryObject = XmlPullParserFactory.newInstance();
+                XmlPullParser myparser = xmlFactoryObject.newPullParser();
 
-            OutputStream os = conn.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(
-                    new OutputStreamWriter(os, "UTF-8"));
-            writer.write(query);
-            writer.flush();
-            writer.close();
-            os.close();
+                myparser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+                myparser.setFeature(XmlPullParser.FEATURE_PROCESS_DOCDECL, true);
+                myparser.setInput(in,null);
 
-            conn.connect();
-            int response = conn.getResponseCode();
+                int texthere = 0;
+                int event = myparser.getEventType();
 
-            is = conn.getInputStream();
+                while (event != XmlPullParser.END_DOCUMENT) {
 
-            // Convert the InputStream into a string
-            String contentAsString = convertInputStreamToString(is, length);
+                    switch (myparser.getEventType()) {
+                        case XmlPullParser.START_TAG:
+                            if (myparser.getName().equals("success")) {
+                                texthere = 1;
+                                success = true;
+                                break;
+                            } else if (myparser.getName().equals("error")) {
+                                texthere = 1;
+                                success = false;
+                                break;
+                            } else if (myparser.getName().equals("username")) {
+                                texthere = 2;
+                                break;
+                            } else if (myparser.getName().equals("password")) {
+                                texthere = 3;
+                                break;
+                            }
+                            break;
+                        case XmlPullParser.TEXT:
+                            if (texthere == 1) {
+                                mytext = myparser.getText();
+                            }
+                            else if (texthere == 2){
+                                username = myparser.getText();
+                            }
+                            else if(texthere == 3){
+                                password = myparser.getText();
+                            }
+                            texthere = 0;
+                            break;
 
-            xmlResponse = contentAsString;
+                        case XmlPullParser.END_TAG:
+                            break;
+                    }
+                    event = myparser.next();
 
-            int index = contentAsString.indexOf("password");
-            password = contentAsString.substring(index + 9, index + 19);
+                }
 
-
-
-            return contentAsString;
-
-
-
-
-            //return contentAsString;
+            } catch (XmlPullParserException | IOException e) {
+                e.printStackTrace();
+            }
+            textresponse = mytext;
 
         } finally {
-            if (is != null) {
-                is.close();
-            }
+            conn.disconnect();
         }
     }
 
-    private class MyAsyncTask extends AsyncTask<String, Void, String> {
-
-        /* Proceso asíncrono que llama a downloadContent (Función que realiza  la petición POST)*/
+    private class MyAsyncTask extends AsyncTask<String, Void, Void> {
 
         @Override
-        protected String doInBackground(String... params) {
+        protected void onPreExecute(){
+            showProgress(true);
+        }
+
+        /* Proceso asíncrono que llama a downloadContent (Función que realiza  la petición POST y convierte respueta XML a formatos aceptables)*/
+        @Override
+        protected Void doInBackground(String... params) {
             // TODO Auto-generated method stub
 
             try {
-                //showProgress(true);
-                return downloadContent(params[0],params[1]);
+                downloadContent(params[0]);
+                return null;
 
             } catch (IOException e) {
-                return "No se pudo establecer la conexión. La URL puede ser invalida";
-                // Toast.makeText(getActivity(), xmlResponse, Toast.LENGTH_LONG).show();
+                textresponse = getString(R.string.internet_connection_error);
+                return null;
             }
 
         }
 
-        protected void onPostExecute(String result) {
 
-            //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
-            //Toast.makeText(getActivity(), userName, Toast.LENGTH_LONG).show();
+        /* Proceso asíncrono que llama a downloadContent (Función que realiza  la petición POST)*/
+        @Override
+        protected void onPostExecute(Void v) {
 
-            //Toast para mostrar respuesta xml del servidor
-            //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
-            //Toast.makeText(getActivity(), "password:"+password, Toast.LENGTH_LONG).show();
-
-
-            if (result.contains("success")) {
-                showProgress(false);
-                Toast.makeText(getActivity(), "Registro satisfactorio", Toast.LENGTH_LONG).show();
-                //showProgress(true);
-                AssistantActivity.instance().genericLogIn(userName, password, "", "sip.fututel.com", TransportType.LinphoneTransportUdp);
-
-
-                //finish();
-
+            if (success) {
+                Toast.makeText(getActivity(), textresponse, Toast.LENGTH_LONG).show();
+                AssistantActivity.instance().genericLogIn(username, password, "", "sip.fututel.com", TransportType.LinphoneTransportUdp);
             } else {
-                Toast.makeText(getActivity(), "Se presentó un problema en el registro", Toast.LENGTH_LONG).show();
-                //showProgress(false);
+                Toast.makeText(getActivity(), textresponse, Toast.LENGTH_LONG).show();
                 makingPostRequest = false;
             }
-
-
-
+            showProgress(false);
         }
 
-    }
-
-    public String convertInputStreamToString(InputStream stream, int length) throws IOException, UnsupportedEncodingException {
-        Reader reader = null;
-        reader = new InputStreamReader(stream, "UTF-8");
-        char[] buffer = new char[length];
-        reader.read(buffer);
-        return new String(buffer);
     }
 
     /**
@@ -415,5 +341,23 @@ public class VerificationFragment extends Fragment {
 
 
         }
+    }
+
+    /**
+     * Devuelve el código hash SHA-512 de la cádena de caracteres dada.
+     *
+     * @string La cádena a codificar.
+     * @return tel cçodigo SHA-512 de {@code s}.
+     */
+    private String sha1(String s) throws Exception {
+        MessageDigest md = MessageDigest.getInstance("SHA-1");
+        md.update(s.getBytes());
+        byte[] bytes = md.digest();
+        StringBuffer buffer = new StringBuffer();
+        for (int i = 0; i < bytes.length; i++) {
+            String tmp = Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1);
+            buffer.append(tmp);
+        }
+        return buffer.toString();
     }
 }

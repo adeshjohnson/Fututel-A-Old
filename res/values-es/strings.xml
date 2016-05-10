@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <!--Custom-->
-  <string name="app_name">Fututel Voz</string>
-  <string name="service_name">Fututel Voz</string>
-  <string name="addressbook_label">Fututel Voz</string>
-  <string name="notification_title">Fututel Voz</string>
+  <string name="app_name">Fututel</string>
+  <string name="service_name">Fututel</string>
+  <string name="addressbook_label">Fututel</string>
+  <string name="notification_title">Fututel</string>
   <string name="wait_dialog_text">Iniciando</string>
-  <string name="sync_account_name">contactos linphone</string>
+  <string name="sync_account_name">Contactos Fututel</string>
   <string name="today_date_format">HH:mm</string>
   <string name="tunnel_host"></string>
   <!--Common-->
@@ -18,6 +18,7 @@
   <string name="cancel">Cancelar</string>
   <string name="accept">Aceptar</string>
   <string name="continue_text">Continuar</string>
+  <string name="about">Acerca</string>
   <string name="deny">Rechazar</string>
   <string name="search">Buscar</string>
   <string name="outgoing">Saliente</string>
@@ -43,7 +44,7 @@
   <string name="no_contact">No hay contactos en su agenda de contactos.</string>
   <string name="no_sip_contact">No hay contactos SIP en su agenda de contactos.</string>
   <string name="sip_address">Dirección SIP</string>
-  <string name="phone_number">Número de teléfono</string>
+  <string name="phone_number">Número móvil</string>
   <string name="contact_first_name">Nombre</string>
   <string name="contact_last_name">Apellido</string>
   <!--Chat-->
@@ -136,7 +137,7 @@
   <string name="pref_audio_title">Audio</string>
   <string name="pref_echo_cancellation">Cancelación de eco</string>
   <string name="ec_calibrating">Calibrando...</string>
-  <string name="failed">fallo</string>
+  <string name="failed">falló</string>
   <string name="pref_codecs">Codecs</string>
   <!--Video settings-->
   <string name="pref_video_title">Vídeo</string>
@@ -162,7 +163,7 @@
   <string name="pref_push_notification">Activar notificaciones push</string>
   <!--Advanced settings-->
   <string name="pref_advanced_title">Avanzado</string>
-  <string name="pref_debug">Desarrollo</string>
+  <string name="pref_debug">Depuración</string>
   <string name="pref_animation_enable_title">Habilitar animaciones</string>
   <string name="pref_autostart">Arrancar al inicio</string>
   <string name="pref_primary_account_title">Cuenta principal</string>
@@ -201,16 +202,16 @@
 
   <!--Nuevos strings agregados para FUTUTEL -->
 
-  <string name="phone">Teléfono</string>
+  <string name="phone">Móvil</string>
   <string name="register">Registrarme</string>
-  <string name="login">Ya tengo una cuenta</string>
+  <string name="login">Ingreso Personalizado</string>
   <string name="calls">Llamadas</string>
   <string name="chats">Chats</string>
   <string name="country">País</string>
-  <string name="country_code">Código de País</string>
+  <string name="country_code">Prefijo del País</string>
   <string name="invalid_country_code">Código de País Inválido</string>
   <string name="invalid_phone_number">Número de teléfono no válido</string>
-   <string name="code_sent">Enviamos un SMS con el código de verificación a tu móvil. Espera un momento...</string>
+   <string name="code_sent">Enviamos un SMS con el código de verificación a tu móvil. Ésto podría demorar hasta varios minutos...</string>
   <string name="continue_string">Continuar</string>
   <string name="verification_code">Código de Verificación</string>
     <string name="assistant_create_account">Crear cuenta</string>
@@ -227,5 +228,79 @@
     <string name="status_not_connected">No registrado</string>
     <string name="assistant_fututel_account">Configurar Cuenta Fututel</string>
     <string name="assistant_fututel_desc">Escoje tu País y Escribe tu Número Móvil</string>
-    <string name="app_description">La <i>Nueva</i> Forma de Llamar</string>
+    <string name="app_description">Videollamadas Gratis</string>
+  <string name="outgoing_call">Llamada Saliente</string>
+  <string name="notification_registered">%s registrado</string>
+  <string name="notification_register_failure">%s falló al registrarse</string>
+  <string name="no_missed_call_history">Sin llamadas perdidas</string>
+  <string name="no_echo">Sin eco</string>
+  <string name="no_current_call">Sin llamada activa</string>
+  <string name="no_chat_history">Sin conversaciones</string>
+  <string name="ec_calibrated">Calibrado en %s ms</string>
+  <string name="couldnt_accept_call">Un error ocurrió al aceptar la llamada</string>
+  <string name="debug_popup_title">Depuración</string>
+  <string name="default_stun"></string>
+  <string name="content_description_switch_camera">Cambiar cámara</string>
+  <string name="content_description_valid">Botón válido</string>
+  <string name="assistant_ec_calibration">Calibración de cancelador de echo en progreso</string>
+  <string name="assistant_display_name_optional">Nombre a mostrar (opcional)</string>
+  <string name="call_paused_by_remote">El otro pausó la llamada</string>
+  <string name="confirm_password">Confirmación de contraseña</string>
+  <string name="connect">Conección</string>
+  <string name="content_description_backspace"></string>
+  <string name="content_description_add">Agregar botón</string>
+  <string name="content_description_call_direction">Dirección de llamada</string>
+  <string name="content_description_detail">Detalles</string>
+  <string name="content_description_edit">Editar botón</string>
+  <string name="content_description_encryption">Encriptación</string>
+  <string name="content_description_history">Botón de Historial</string>
+  <string name="content_description_message_status">Estado del mensaje</string>
+  <string name="content_description_new_discussion">Nueva discusión</string>
+  <string name="delete_contact">¿Desea eliminar el contacto seleccionado?</string>
+  <string name="delete_contacts">¿Desea eliminar los contactos seleccionados?</string>
+  <string name="delete_conversation">¿Desea eliminar las conversaciones seleccionadas?</string>
+  <string name="delete_history_log">¿Desea eliminar el registro de llamadas seleccionado?</string>
+  <string name="delete_message">¿Desea eliminar el mensaje seleccionado?</string>
+  <string name="delete_text">¿Está seguro de querer eliminar su selección?</string>
+  <string name="domain">Dominio</string>
+  <string name="download_image_failed">Descarga fallada. Por favor chequee su conección o intente más tarde</string>
+  <string name="error_bad_credentials">Credenciales errados</string>
+  <string name="error_incompatible_media">Parámetros de media incompatibles</string>
+  <string name="error_low_bandwidth">El otro tiene poco ancho de banda, el vídeo no se puede iniciar</string>
+  <string name="no_account">Ninguna cuenta configurada</string>
+  <string name="no_call_history">Ninguna llamada en su historial</string>
+  <string name="pref_adaptive_rate_control">Control de tasa adaptativo</string>
+  <string name="pref_echo_cancellation_summary">Remover el eco escuchado por el otro</string>
+  <string name="pref_echo_canceller_calibration">Calibración de cancelador de eco</string>
+  <string name="pref_enable_outbound_proxy_key">Proxy saliente</string>
+  <string name="pref_expire_title">Expiración</string>
+  <string name="pref_help_display_name">Entre el nombre a mostrar (opcional)</string>
+  <string name="pref_help_auth_userid">Entre usuario de autenticación (opcional)</string>
+  <string name="pref_help_outbound_proxy">Rutear todas las llamadas a través del SIP Proxy</string>
+  <string name="pref_help_password">Debes volver a entrar tu contraseña si editas tu usuario o dominio</string>
+  <string name="pref_help_proxy">Dominio o IP del SIP Proxy</string>
+  <string name="pref_image_sharing_server_title">Servidor para compartir</string>
+  <string name="pref_incoming_call_timeout_title">Colgado de llamada entrante (en segundos)</string>
+  <string name="pref_manage_title">Administrar</string>
+  <string name="pref_media_encryption">Encriptación de media</string>
+  <string name="pref_media_encryption_key_none">ninguno</string>
+  <string name="pref_remote_provisioning_title">Provisionamiento remoto</string>
+  <string name="pref_wifi_only">Usar sólo WiFi</string>
+  <string name="processing_image">Procesando imagen, puede tomar hasta varios segundos dependiendo del tamaño del archivo</string>
+  <string name="remote_composing">El otro está escribiendo...</string>
+  <string name="remote_provisioning_again_title">Provisionamiento remoto</string>
+  <string name="tunnel_mode_entry_value_3G_only">3G_únicamente</string>
+  <string name="tunnel_mode_entry_value_always">siempre</string>
+  <string name="tunnel_mode_entry_value_auto"></string>
+  <string name="tunnel_mode_entry_value_disabled">deshabilitado</string>
+  <string name="unread_messages">%i mensajes no leídos</string>
+  <string name="welcome">Bienvenido</string>
+  <string name="wizard_email_incorrect">Su email es inválido</string>
+  <string name="wizard_username_incorrect">Su usuario es inválido</string>
+  <string name="wizard_password_incorrect">Su contraseña es inválida (6 carácteres como mínimo)</string>
+  <string name="wizard_passwords_unmatched">Las contraseñas no coinciden</string>
+  <string name="internet_connection_error">Verifique su conexión a internet o intente más tarde</string>
+  <string name="invalid_verification_code">Código de Verificación inválido</string>
+  <string name="already_have_a_code">Ya tengo un Código</string>
+  <string name="write_verification_code">Escriba el código de verificación</string>
 </resources>
