@@ -912,7 +912,8 @@ public class LinphonePreferences {
 	}
 
 	public boolean isUsingRandomPort() {
-		return getConfig().getBool("app", "random_port", true);
+		boolean random = getConfig().getBool("app", "random_port", true);
+		return random;
 	}
 
 	public String getSipPort() {

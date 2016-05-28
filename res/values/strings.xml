@@ -375,4 +375,10 @@
     <string name="invalid_verification_code">Invalid Verification Code</string>
 	<string name="already_have_a_code">Already Have a Code</string>
 	<string name="write_verification_code">Type the verification code</string>
+	<string name="sending_sms">SENDING SMS...</string>
+	<string name="sending_verification_code_by_SMS">Sending Verification Code by SMS...</string>
+	<string name="registration_in_fututel">REGISTRATION IN FUTUTEL</string>
+	<string name="contacting_fututel_server_to_make_registration">Contacting Fututel\'s server to make Registration...</string>
+	<string name="configuring_app">CONFIGURING APP</string>
+	<string name="configuring_app_with_your_data">Configuring application with your data...</string>
 </resources>

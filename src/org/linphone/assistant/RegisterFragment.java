@@ -22,6 +22,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -75,6 +76,7 @@ public class RegisterFragment extends Fragment {
 	public boolean makingPostRequest = false;
     private boolean success = false;
     private String textresponse = null;
+	private ProgressDialog dialog;
 
 
 	@Override
@@ -169,7 +171,6 @@ public class RegisterFragment extends Fragment {
 
                     urlForPostRequest = "http://sip.fututel.com/billing/api/send_sms_verification_code?u=admin&country_prefix="+countryCode+"&local_number="+mPhone.getText().toString()+"&hash="+sha1CodedString;
                     makingPostRequest = true;
-                    //showProgress(true);
 
                     //Ejecuta el proceso asíncrono para la petición post
                     new MyAsyncTask().execute(urlForPostRequest);
@@ -247,11 +248,12 @@ public class RegisterFragment extends Fragment {
         /* Este método realiza la petición POST al servidor de FUTUTEL */
 		URL url = new URL(myurl);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        InputStream in = null;
 		try {
-			conn.setReadTimeout(10000 /* milliseconds */);
-			conn.setConnectTimeout(15000 /* milliseconds */);
+			conn.setReadTimeout(40000 /* milliseconds */);
+			conn.setConnectTimeout(10000 /* milliseconds */);
 			conn.setRequestMethod("POST");
-			InputStream in = new BufferedInputStream(conn.getInputStream());
+			in = new BufferedInputStream(conn.getInputStream());
 
             String mytext = null;
             try {
@@ -301,7 +303,9 @@ public class RegisterFragment extends Fragment {
             textresponse = mytext;
 
 		} finally {
-			conn.disconnect();
+            if(in != null){
+                in.close();
+            }
 		}
 	}
 
@@ -310,7 +314,13 @@ public class RegisterFragment extends Fragment {
 
         @Override
         protected void onPreExecute(){
-            showProgress(true);
+			dialog = new ProgressDialog(getActivity());
+            dialog.setTitle(getString(R.string.sending_sms));
+            dialog.setMessage(getString(R.string.sending_verification_code_by_SMS));
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog.setIndeterminate(true);
+            dialog.setCancelable(false);
+            dialog.show();
         }
 
      /* Proceso asíncrono que llama a downloadContent (Función que realiza  la petición POST y convierte respueta XML a formatos aceptables)*/
@@ -319,8 +329,7 @@ public class RegisterFragment extends Fragment {
 			// TODO Auto-generated method stub
 
 			try {
-                //showProgress(true);
-				downloadContent(params[0]);
+ 				downloadContent(params[0]);
                 return null;
 
 			} catch (IOException e) {
@@ -337,15 +346,18 @@ public class RegisterFragment extends Fragment {
 
             if (success == true)
 			{
+                dialog.dismiss();
+                //showProgress(false);
 				Toast.makeText(getActivity(), textresponse, Toast.LENGTH_LONG).show();
 				AssistantActivity.instance().verificateCode(mPhone.getText().toString(), countryCode);
 			}
 			else
-			{
+			{   dialog.dismiss();
+                //showProgress(false);
 				Toast.makeText(getActivity(), textresponse, Toast.LENGTH_LONG).show();
 				makingPostRequest = false;
+
 			}
-            showProgress(false);
 		}
 
 	}
@@ -361,7 +373,6 @@ public class RegisterFragment extends Fragment {
 
 	/**
 	 * Shows the progress UI and hides the login form.
-	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
 	public void showProgress(final boolean show) {
 		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -403,7 +414,7 @@ public class RegisterFragment extends Fragment {
 
 		}
 	}
-
+*/
 	/**
 	 * Returns the SHA-512 hashcode of the given string.
 	 * @param s the string to be hashed.

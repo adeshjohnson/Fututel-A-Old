@@ -407,9 +407,14 @@ public class AssistantActivity extends Activity implements OnClickListener {
 			}
 
 			if(transport != null){
-				builder.setTransport(transport);
+				builder.setTransport(transport)
+                .setExpires("600");
 			}
+
 		}
+        mPrefs.useRandomPort(true);  //To use effectively random port for SIP.
+		mPrefs.enableVideo(true);
+        mPrefs.setAutoStart(true);
 		
 		if (getResources().getBoolean(R.bool.enable_push_id)) {
 			String regId = mPrefs.getPushNotificationRegistrationID();
@@ -431,6 +436,7 @@ public class AssistantActivity extends Activity implements OnClickListener {
 
  	public void displayRegistrationInProgressDialog(){
 		if(LinphoneManager.getLc().isNetworkReachable()) {
+            /*
 			progress = ProgressDialog.show(this,null,null);
 			Drawable d = new ColorDrawable(getResources().getColor(R.color.colorE));
 			d.setAlpha(200);
@@ -438,6 +444,14 @@ public class AssistantActivity extends Activity implements OnClickListener {
 			progress.getWindow().setBackgroundDrawable(d);
 			progress.setContentView(R.layout.progress_dialog);
 			progress.show();
+            */
+            progress = new ProgressDialog(this);
+            progress.setTitle(getString(R.string.configuring_app));
+            progress.setMessage(getString(R.string.configuring_app_with_your_data));
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.setIndeterminate(true);
+            progress.setCancelable(false);
+            progress.show();
 		}
 	}
 

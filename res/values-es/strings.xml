@@ -303,4 +303,13 @@
   <string name="invalid_verification_code">Código de Verificación inválido</string>
   <string name="already_have_a_code">Ya tengo un Código</string>
   <string name="write_verification_code">Escriba el código de verificación</string>
+  <string name="sending_sms">ENVIANDO SMS...</string>
+  <string name="sending_verification_code_by_SMS">Enviando Código de Verificación por SMS...</string>
+  <string name="registration_in_fututel">REGISTRO EN FUTUTEL</string>
+  <string name="contacting_fututel_server_to_make_registration">Contactando el servidor de Fututel para hacer el Registro...</string>
+    <string name="configuring_app">CONFIGURANDO APP</string>
+    <string name="configuring_app_with_your_data">Configurando aplicación con tus datos...</string>
+
+  <!-- Dailer -->
+  <string name="address_bar_hint">Entre un Número o Dirección</string>
 </resources>

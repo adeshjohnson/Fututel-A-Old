@@ -23,6 +23,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -74,6 +75,7 @@ public class VerificationFragment extends Fragment {
     private String textresponse = null;
     private String password = null;
     private String username = null;
+    private ProgressDialog dialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -262,7 +264,13 @@ public class VerificationFragment extends Fragment {
 
         @Override
         protected void onPreExecute(){
-            showProgress(true);
+            dialog = new ProgressDialog(getActivity());
+            dialog.setTitle(getString(R.string.registration_in_fututel));
+            dialog.setMessage(getString(R.string.contacting_fututel_server_to_make_registration));
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog.setIndeterminate(true);
+            dialog.setCancelable(false);
+            dialog.show();
         }
 
         /* Proceso asíncrono que llama a downloadContent (Función que realiza  la petición POST y convierte respueta XML a formatos aceptables)*/
@@ -287,20 +295,21 @@ public class VerificationFragment extends Fragment {
         protected void onPostExecute(Void v) {
 
             if (success) {
+                dialog.dismiss();
                 Toast.makeText(getActivity(), textresponse, Toast.LENGTH_LONG).show();
                 AssistantActivity.instance().genericLogIn(username, password, "", "sip.fututel.com", TransportType.LinphoneTransportUdp);
             } else {
+                dialog.dismiss();
                 Toast.makeText(getActivity(), textresponse, Toast.LENGTH_LONG).show();
                 makingPostRequest = false;
             }
-            showProgress(false);
         }
 
     }
 
     /**
      * Shows the progress UI and hides the login form.
-     */
+
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     public void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -342,7 +351,7 @@ public class VerificationFragment extends Fragment {
 
         }
     }
-
+*/
     /**
      * Devuelve el código hash SHA-512 de la cádena de caracteres dada.
      *

@@ -33,7 +33,8 @@
 					android:layout_marginBottom="25dp"
 					android:text="@string/code_sent"
 					android:textAllCaps="true"
-					style="@style/font13" />
+					style="@style/font13"
+					android:textColor="@color/colorB" />
 
 				<EditText
 					android:id="@+id/verification_code"
